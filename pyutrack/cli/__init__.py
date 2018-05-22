@@ -32,6 +32,8 @@ def cli(ctx, base_url, username, password, debug, watch):
     ctx.obj.watch = watch
     if debug:
         logging.basicConfig(level=logging.DEBUG)
+        import httplib
+        httplib.HTTPConnection.debuglevel = 1
     if base_url:
         connection.api_url = base_url
 

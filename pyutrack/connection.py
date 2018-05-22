@@ -8,6 +8,7 @@ from pyutrack.errors import (
     response_to_exc, AuthorizationError, LoginError,
     PermissionsError, ResponseError
 )
+from pyutrack.logger import get_logger
 
 
 class Credentials(object):
@@ -198,6 +199,7 @@ class Connection(object):
             raise response_to_exc(response)
         if response.status_code == 201 and response.headers.get('location'):
             return self.__session.get(response.headers['location']).json()
+        get_logger().debug(response.content)
         if not parse:
             return response.content
         try:
