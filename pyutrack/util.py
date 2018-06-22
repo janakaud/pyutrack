@@ -14,7 +14,7 @@ def print_friendly(value, sep=', '):
     if isinstance(value, six.string_types):
         return value
     if isinstance(value, collections.Iterable):
-        return sep.join(str(k) for k in value)
+        return sep.join(str(k.encode('ascii', 'ignore')) for k in value)
     return str(value)
 
 
@@ -164,7 +164,8 @@ class Type(type):
             try:
                 return self.fields[lookup]
             except KeyError:
-                return dpath.util.get(self.fields, lookup)
+                func = dpath.util.values if lookup.find("*") > -1 else dpath.util.get
+                return func(self.fields, lookup)
 
         def _update(self, callback, **kwargs):
             resource_data = self.__update_data(kwargs)

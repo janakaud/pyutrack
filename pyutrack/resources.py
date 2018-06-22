@@ -227,12 +227,13 @@ class Issue(object):
         'fixVersions': 'Fix versions',
         'affectedVersions': 'Affected versions',
         'type': 'Type',
-        'status': 'Status'
+        'comments': 'comment/*/text',
+        'status': 'State/0'
     }
     __render__ = (
         'id', 'summary', 'status', 'assignee', 'reporter', 'updater',
         'description', 'updated', 'subsystem', 'fixVersions', 'affectedVersions', 'type',
-        'priority', 'link'
+        'priority', 'link', 'comments'
     )
     __render_min__ = ('id', 'summary')
     __associations__ = {
